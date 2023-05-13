@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -22,9 +23,11 @@ public class ExchangeEntity extends BaseEntity {
 
     private Double amount;
 
-    @ManyToMany
-    @JoinTable(name = "exchange_rate_mapping",
-            joinColumns = @JoinColumn(name = "exchange_id"),
-            inverseJoinColumns = @JoinColumn(name = "rate_id"))
-    private Set<RateEntity> rates;
+    @ElementCollection
+    @CollectionTable(name = "exchange_mapping",
+            joinColumns = {@JoinColumn(name = "exchange_id", referencedColumnName = "id")})
+    @MapKeyColumn(name = "currency")
+    @MapKeyEnumerated(EnumType.STRING)
+    @Column(name = "rates")
+    private Map<EnumCurrency, Double> rates;
 }
