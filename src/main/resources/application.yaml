@@ -13,6 +13,13 @@ spring:
     console:
       enabled: true
 
+resilience4j:
+  ratelimiter:
+    instances:
+      basic:
+        limit-for-period: 10
+        limit-refresh-period: 1m
+        timeout-duration: 10s
 
 exchange-api:
   api-url: https://api.apilayer.com/exchangerates_data/latest
