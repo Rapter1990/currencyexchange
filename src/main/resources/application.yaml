@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:exchange
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+
+
+exchange-api:
+  api-url: https://api.apilayer.com/exchangerates_data/latest
+  api-key: ${EXCHANGE_API_API_KEY:default-key}
+  api-call-limit: 60
+  cache-name: exchanges
+  cache-ttl: 10000
+
+
+
+
