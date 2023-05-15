@@ -4,14 +4,13 @@ import com.exchangeapi.currencyexchange.entity.enums.EnumCurrency;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @Builder
 @Getter
 public class RateDto {
     private EnumCurrency base;
-    private LocalDateTime date;
+    private LocalDate date;
     List<RateInfoDto> rates;
 }
