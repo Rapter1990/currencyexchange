@@ -22,7 +22,7 @@ resilience4j:
         timeout-duration: 10s
 
 exchange-api:
-  api-url: https://api.apilayer.com/exchangerates_data/latest
+  api-url: https://api.apilayer.com/exchangerates_data/
   api-key: ${EXCHANGE_API_API_KEY:default-key}
   api-call-limit: 60
   cache-name: exchanges

@@ -63,7 +63,7 @@ public class RateService {
         LocalDate rateDate = Optional.ofNullable(date).orElse(LocalDate.now());
 
         RateEntity rateEntity = rateRepository.findOneByDate(rateDate)
-                .orElseGet(() -> saveRatesFromApi(rateDate));
+                .orElseGet(() -> saveRatesFromApi(rateDate, base, targets));
 
         Map<EnumCurrency, Double> rates = rateEntity.getRates();
 
@@ -89,10 +89,11 @@ public class RateService {
         );
     }
 
-    private RateEntity saveRatesFromApi(LocalDate rateDate) {
+    private RateEntity saveRatesFromApi(LocalDate rateDate, EnumCurrency base, List<EnumCurrency> targets) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("apikey", EXCHANGE_API_API_KEY);
-        ResponseEntity<String> response = restTemplate.exchange(getExchangeUrl(), HttpMethod.GET, null, String.class, headers);
+        String url = getExchangeUrl(rateDate, base, targets);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, String.class, headers);
         try {
             RateResponse rates = objectMapper.readValue(response.getBody(), RateResponse.class);
             RateEntity entity = convert(rates);
@@ -103,8 +104,9 @@ public class RateService {
         }
     }
 
-    private String getExchangeUrl() {
-        return EXCHANGE_API_BASE_URL;
+    private String getExchangeUrl(LocalDate rateDate, EnumCurrency base, List<EnumCurrency> targets) {
+        String symbols = String.join("%2C", targets.stream().map(EnumCurrency::name).toArray(String[]::new));
+        return EXCHANGE_API_BASE_URL + rateDate + "?symbols=" + symbols + "&base=" + base;
     }
 
     private RateEntity convert(RateResponse source) {
