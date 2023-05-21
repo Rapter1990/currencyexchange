@@ -91,7 +91,7 @@
 			<artifactId>httpclient5</artifactId>
 		</dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>

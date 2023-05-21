@@ -7,12 +7,12 @@
 	},
 	"item": [
 		{
-			"name": "Get Conversion",
+			"name": "Get Rates",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/v1/conversion/1",
+					"raw": "http://localhost:8080/v1/rate?base=USD&target=EUR,TRY&date=2023-05-21",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -20,37 +20,20 @@
 					"port": "8080",
 					"path": [
 						"v1",
-						"conversion",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Conversion List",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/v1/conversion?startDate=2023-05-22&endDate=2023-05-23",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"v1",
-						"conversion"
+						"rate"
 					],
 					"query": [
 						{
-							"key": "startDate",
-							"value": "2023-05-22"
+							"key": "base",
+							"value": "USD"
 						},
 						{
-							"key": "endDate",
-							"value": "2023-05-23"
+							"key": "target",
+							"value": "EUR,TRY"
+						},
+						{
+							"key": "date",
+							"value": "2023-05-21"
 						}
 					]
 				}
@@ -104,12 +87,12 @@
 			"response": []
 		},
 		{
-			"name": "Get Rates",
+			"name": "Get Conversion",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/v1/rate?base=USD&target=EUR,TRY&date=2023-05-21",
+					"raw": "http://localhost:8080/v1/conversion/2f5813e0-d3ce-4475-9d4b-2245d6efde91",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -117,19 +100,36 @@
 					"port": "8080",
 					"path": [
 						"v1",
-						"rate"
+						"conversion",
+						"2f5813e0-d3ce-4475-9d4b-2245d6efde91"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Conversion List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/conversion?startDate=2023-05-20&endDate=2023-05-21",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"conversion"
 					],
 					"query": [
 						{
-							"key": "base",
-							"value": "USD"
+							"key": "startDate",
+							"value": "2023-05-20"
 						},
 						{
-							"key": "target",
-							"value": "EUR,TRY"
-						},
-						{
-							"key": "date",
+							"key": "endDate",
 							"value": "2023-05-21"
 						}
 					]
