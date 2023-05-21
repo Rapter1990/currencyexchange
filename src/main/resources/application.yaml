@@ -24,7 +24,7 @@ resilience4j:
 
 exchange-api:
   api-url: https://api.apilayer.com/exchangerates_data/
-  api-key: ${EXCHANGE_API_API_KEY:default-key}
+  api-key: ${EXCHANGE_API_API_KEY:YiQsx3cXciiL8GI9xkJvxhFH7xEavkWf}
   api-call-limit: 60
   cache-name: exchanges
   cache-ttl: 10000
