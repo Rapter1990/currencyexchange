@@ -2,6 +2,7 @@ spring:
   datasource:
     driverClassName: org.h2.Driver
     url: jdbc:h2:mem:exchange
+    username: sa
   jackson:
     serialization:
       fail-on-empty-beans: false
