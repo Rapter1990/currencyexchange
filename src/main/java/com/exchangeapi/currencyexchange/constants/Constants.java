@@ -14,7 +14,7 @@ public class Constants {
 
     @Value("${exchange-api.api-url}")
     public void setExchangeApiBaseUrl(String apiUrl) {
-        Constants.EXCHANGE_API_BASE_URL = apiUrl;
+        EXCHANGE_API_BASE_URL = apiUrl;
     }
 
     @Value("${exchange-api.api-key}")
@@ -24,7 +24,7 @@ public class Constants {
 
     @Value("${exchange-api.cache-name}")
     public void setExchangeCacheName(String cacheName) {
-        Constants.EXCHANGE_CACHE_NAME = cacheName;
+        EXCHANGE_CACHE_NAME = cacheName;
     }
 
     @Value("${exchange-api.api-call-limit}")
