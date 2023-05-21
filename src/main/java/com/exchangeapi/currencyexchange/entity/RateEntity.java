@@ -23,8 +23,8 @@ public class RateEntity extends BaseEntity{
     private EnumCurrency base;
 
     @ElementCollection
-    @CollectionTable(name = "exchange_mapping",
-            joinColumns = {@JoinColumn(name = "exchange_id", referencedColumnName = "id")})
+    @CollectionTable(name = "rate_mapping",
+            joinColumns = {@JoinColumn(name = "rate_id", referencedColumnName = "id")})
     @MapKeyColumn(name = "currency")
     @MapKeyEnumerated(EnumType.STRING)
     @Column(name = "rates")
