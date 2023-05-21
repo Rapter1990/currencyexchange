@@ -35,10 +35,9 @@ public class ExchangeService {
 
     private final ExchangeRepository exchangeRepository;
     private final RateService rateService;
-    private final ObjectMapper objectMapper;
 
 
-    @CachePut(key = "#exchange")
+    //@CachePut(key = "#exchange")
     public ExchangeDto calculateExchangeRate(Double amount, EnumCurrency base, List<EnumCurrency> targets) {
         log.info("ExchangeService | calculateExchangeRate is called");
 
@@ -62,7 +61,7 @@ public class ExchangeService {
     }
 
 
-    @Cacheable(key = "#exchange")
+    //@Cacheable(key = "#exchange")
     public ExchangeDto getConversion(Long id) {
         log.info("ExchangeService | calculateExchangeRate is called");
         return exchangeRepository.findById(id).map(this::mapToExchangeDTO).orElseThrow(() -> new ExchangeNotFoundException("Not Found"));
@@ -76,17 +75,18 @@ public class ExchangeService {
     }
 
     private ExchangeDto mapToExchangeDTO(ExchangeEntity exchangeEntity) {
-
+        log.info("ExchangeService | mapToExchangeDTO is called");
         return ExchangeDto.builder()
                 .amount(exchangeEntity.getAmount())
                 .base(exchangeEntity.getBase())
                 .date(exchangeEntity.getDate())
+                .rates(exchangeEntity.getRates())
                 .build();
 
     }
 
     private RateInfoDto mapToRateInfoDto(RateInfoDto rateInfoDto, Double amount) {
-
+        log.info("ExchangeService | mapToRateInfoDto is called");
         EnumCurrency enumCurrency = rateInfoDto.currency();
         Double rate = BigDecimal.valueOf(rateInfoDto.rate()).multiply(BigDecimal.valueOf(amount),
                 new MathContext(5, RoundingMode.CEILING)).doubleValue();
