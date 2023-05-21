@@ -8,18 +8,12 @@ import com.exchangeapi.currencyexchange.payload.response.RateResponse;
 import com.exchangeapi.currencyexchange.repository.RateRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.exchangeapi.currencyexchange.constants.Constants.EXCHANGE_API_API_KEY;
@@ -81,11 +75,12 @@ public class RateService {
         log.info("ExchangeService | saveRatesFromApi is called");
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("apikey", EXCHANGE_API_API_KEY);
+        headers.add("apikey", EXCHANGE_API_API_KEY);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        final HttpEntity<String> headersEntity = new HttpEntity<>(headers);
         String url = getExchangeUrl(rateDate, base, targets);
 
-        HttpEntity<?> requestEntity = new HttpEntity<>(headers);
-        ResponseEntity<RateResponse> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, RateResponse.class);
+        ResponseEntity<RateResponse> responseEntity = restTemplate.exchange(url, HttpMethod.GET, headersEntity, RateResponse.class);
 
         RateResponse rates = responseEntity.getBody();
         RateEntity entity = convert(rates);
