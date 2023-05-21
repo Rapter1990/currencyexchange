@@ -62,7 +62,7 @@ public class ExchangeService {
 
 
     //@Cacheable(key = "#exchange")
-    public ExchangeDto getConversion(Long id) {
+    public ExchangeDto getConversion(String id) {
         log.info("ExchangeService | calculateExchangeRate is called");
         return exchangeRepository.findById(id).map(this::mapToExchangeDTO).orElseThrow(() -> new ExchangeNotFoundException("Not Found"));
     }

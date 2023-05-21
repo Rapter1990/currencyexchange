@@ -19,7 +19,7 @@ public class ConversionController {
 
     @RateLimiter(name = "basic")
     @GetMapping("/{id}")
-    public ResponseEntity<ExchangeDto> getConversion(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<ExchangeDto> getConversion(@PathVariable(name = "id") String id) {
         return ResponseEntity.ok(exchangeService.getConversion(id));
     }
 
