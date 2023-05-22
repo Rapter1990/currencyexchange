@@ -10,6 +10,7 @@ import java.util.Map;
 @Builder
 @Getter
 public class ExchangeDto {
+    private String id;
     private EnumCurrency base;
     private Double amount;
     private LocalDate date;
