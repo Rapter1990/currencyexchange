@@ -1,6 +1,7 @@
 package com.exchangeapi.currencyexchange.service;
 
 import com.exchangeapi.currencyexchange.base.BaseServiceTest;
+import com.exchangeapi.currencyexchange.constants.Constants;
 import com.exchangeapi.currencyexchange.dto.RateDto;
 import com.exchangeapi.currencyexchange.dto.RateInfoDto;
 import com.exchangeapi.currencyexchange.entity.RateEntity;
@@ -45,7 +46,7 @@ class RateServiceTest extends BaseServiceTest {
         List<EnumCurrency> targets = Arrays.asList(EnumCurrency.USD, EnumCurrency.GBP);
         LocalDate date = LocalDate.of(2023, 5, 22);
 
-        String expectedApiKey = "YiQsx3cXciiL8GI9xkJvxhFH7xEavkWf";
+        String expectedApiKey = Constants.EXCHANGE_API_API_KEY;
 
         // Mocked rate entity
         RateEntity mockedRateEntity = new RateEntity();
@@ -96,6 +97,6 @@ class RateServiceTest extends BaseServiceTest {
     private String getExchangeUrl(LocalDate rateDate, EnumCurrency base, List<EnumCurrency> targets) {
 
         String symbols = String.join("%2C", targets.stream().map(EnumCurrency::name).toArray(String[]::new));
-        return "https://api.apilayer.com/exchangerates_data/" + rateDate + "?symbols=" + symbols + "&base=" + base;
+        return Constants.EXCHANGE_API_BASE_URL + rateDate + "?symbols=" + symbols + "&base=" + base;
     }
 }
