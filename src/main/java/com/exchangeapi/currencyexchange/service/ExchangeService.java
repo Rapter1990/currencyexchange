@@ -37,7 +37,7 @@ public class ExchangeService {
     private final RateService rateService;
 
 
-    //@CachePut(key = "#exchange")
+    @CachePut(key = "#exchange")
     public ExchangeDto calculateExchangeRate(Double amount, EnumCurrency base, List<EnumCurrency> targets) {
         log.info("ExchangeService | calculateExchangeRate is called");
 
@@ -61,7 +61,7 @@ public class ExchangeService {
     }
 
 
-    //@Cacheable(key = "#exchange")
+    @Cacheable(key = "#exchange")
     public ExchangeDto getConversion(String id) {
         log.info("ExchangeService | calculateExchangeRate is called");
         return exchangeRepository.findById(id).map(this::mapToExchangeDTO).orElseThrow(() -> new ExchangeNotFoundException("Not Found"));
