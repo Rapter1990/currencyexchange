@@ -8,11 +8,10 @@ import com.exchangeapi.currencyexchange.entity.RateEntity;
 import com.exchangeapi.currencyexchange.entity.enums.EnumCurrency;
 import com.exchangeapi.currencyexchange.payload.response.RateResponse;
 import com.exchangeapi.currencyexchange.repository.RateRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -39,14 +38,15 @@ class RateServiceTest extends BaseServiceTest {
     private RateService rateService;
 
     @Test
-    void calculateRate() {
+    void testCalculateRate() {
+
+        // Initialize mocks
+        MockitoAnnotations.openMocks(this);
 
         // Mocked data
         EnumCurrency base = EnumCurrency.EUR;
         List<EnumCurrency> targets = Arrays.asList(EnumCurrency.USD, EnumCurrency.GBP);
         LocalDate date = LocalDate.of(2023, 5, 22);
-
-        String expectedApiKey = Constants.EXCHANGE_API_API_KEY;
 
         // Mocked rate entity
         RateEntity mockedRateEntity = new RateEntity();
@@ -67,9 +67,22 @@ class RateServiceTest extends BaseServiceTest {
                 .date(date)
                 .build();
 
-        ResponseEntity<RateResponse> mockedResponseEntity = ResponseEntity.ok(mockedRateResponse);
-        when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), eq(RateResponse.class)))
-                .thenReturn(mockedResponseEntity);
+        // Create a HttpHeaders object and set the "apikey" header
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("apikey", "YiQsx3cXciiL8GI9xkJvxhFH7xEavkWf");
+
+        // Create a mock response entity with the expected headers and body
+        ResponseEntity<RateResponse> mockedResponseEntity = ResponseEntity.ok()
+                .headers(headers)
+                .body(mockedRateResponse);
+
+        // Mock RestTemplate behavior
+        when(restTemplate.exchange(
+                anyString(),
+                eq(HttpMethod.GET),
+                any(HttpEntity.class),
+                eq(RateResponse.class)
+        )).thenReturn(mockedResponseEntity);
 
         // Call the method
         RateDto result = rateService.calculateRate(base, targets, date);
@@ -80,9 +93,14 @@ class RateServiceTest extends BaseServiceTest {
         // Verify API call was made
         String expectedUrl = getExchangeUrl(date, base, targets);
         HttpHeaders expectedHeaders = new HttpHeaders();
-        expectedHeaders.add("apikey", expectedApiKey);
+        expectedHeaders.add("apikey", "YiQsx3cXciiL8GI9xkJvxhFH7xEavkWf");
         HttpEntity<String> expectedHttpEntity = new HttpEntity<>(expectedHeaders);
-        verify(restTemplate, times(1)).exchange(eq(expectedUrl), eq(HttpMethod.GET), eq(expectedHttpEntity), eq(RateResponse.class));
+        verify(restTemplate, times(1)).exchange(
+                eq(expectedUrl),
+                eq(HttpMethod.GET),
+                eq(expectedHttpEntity),
+                eq(RateResponse.class)
+        );
 
         // Verify the result
         assertThat(result.getBase()).isEqualTo(base);
@@ -97,6 +115,6 @@ class RateServiceTest extends BaseServiceTest {
     private String getExchangeUrl(LocalDate rateDate, EnumCurrency base, List<EnumCurrency> targets) {
 
         String symbols = String.join("%2C", targets.stream().map(EnumCurrency::name).toArray(String[]::new));
-        return Constants.EXCHANGE_API_BASE_URL + rateDate + "?symbols=" + symbols + "&base=" + base;
+        return "https://api.apilayer.com/exchangerates_data/" + rateDate + "?symbols=" + symbols + "&base=" + base;
     }
 }
