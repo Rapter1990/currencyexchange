@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
   datasource:
     driverClassName: org.h2.Driver
     url: jdbc:h2:mem:exchange
@@ -24,7 +26,7 @@ resilience4j:
 
 exchange-api:
   api-url: https://api.apilayer.com/exchangerates_data/
-  api-key: ${EXCHANGE_API_API_KEY:YiQsx3cXciiL8GI9xkJvxhFH7xEavkWf}
+  api-key: ${EXCHANGE_API_API_KEY:default-key}
   api-call-limit: 60
   cache-name: exchanges
   cache-ttl: 10000
