@@ -42,9 +42,6 @@ class RateServiceTest extends BaseServiceTest {
     @Test
     void testCalculateRate() {
 
-        // Initialize mocks
-        MockitoAnnotations.openMocks(this);
-
         // Mocked data
         EnumCurrency base = EnumCurrency.EUR;
         List<EnumCurrency> targets = Arrays.asList(EnumCurrency.USD, EnumCurrency.GBP);
