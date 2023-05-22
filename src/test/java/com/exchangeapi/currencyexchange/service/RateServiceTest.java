@@ -21,6 +21,8 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDate;
 import java.util.*;
 
+import static com.exchangeapi.currencyexchange.constants.Constants.EXCHANGE_API_API_KEY;
+import static com.exchangeapi.currencyexchange.constants.Constants.EXCHANGE_API_BASE_URL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -69,7 +71,7 @@ class RateServiceTest extends BaseServiceTest {
 
         // Create a HttpHeaders object and set the "apikey" header
         HttpHeaders headers = new HttpHeaders();
-        headers.add("apikey", "YiQsx3cXciiL8GI9xkJvxhFH7xEavkWf");
+        headers.add("apikey", EXCHANGE_API_API_KEY);
 
         // Create a mock response entity with the expected headers and body
         ResponseEntity<RateResponse> mockedResponseEntity = ResponseEntity.ok()
@@ -93,7 +95,7 @@ class RateServiceTest extends BaseServiceTest {
         // Verify API call was made
         String expectedUrl = getExchangeUrl(date, base, targets);
         HttpHeaders expectedHeaders = new HttpHeaders();
-        expectedHeaders.add("apikey", "YiQsx3cXciiL8GI9xkJvxhFH7xEavkWf");
+        expectedHeaders.add("apikey", EXCHANGE_API_API_KEY);
         HttpEntity<String> expectedHttpEntity = new HttpEntity<>(expectedHeaders);
         verify(restTemplate, times(1)).exchange(
                 eq(expectedUrl),
@@ -115,6 +117,6 @@ class RateServiceTest extends BaseServiceTest {
     private String getExchangeUrl(LocalDate rateDate, EnumCurrency base, List<EnumCurrency> targets) {
 
         String symbols = String.join("%2C", targets.stream().map(EnumCurrency::name).toArray(String[]::new));
-        return "https://api.apilayer.com/exchangerates_data/" + rateDate + "?symbols=" + symbols + "&base=" + base;
+        return EXCHANGE_API_BASE_URL + rateDate + "?symbols=" + symbols + "&base=" + base;
     }
 }
