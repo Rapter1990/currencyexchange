@@ -1,7 +1,6 @@
 package com.exchangeapi.currencyexchange.service;
 
 import com.exchangeapi.currencyexchange.base.BaseServiceTest;
-import com.exchangeapi.currencyexchange.constants.Constants;
 import com.exchangeapi.currencyexchange.dto.RateDto;
 import com.exchangeapi.currencyexchange.dto.RateInfoDto;
 import com.exchangeapi.currencyexchange.entity.RateEntity;
@@ -11,7 +10,6 @@ import com.exchangeapi.currencyexchange.repository.RateRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
