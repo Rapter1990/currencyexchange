@@ -64,6 +64,7 @@ public class RateService {
                 .collect(Collectors.toList());
 
         return RateDto.builder()
+                .id(rateEntity.getId())
                 .base(rateEntity.getBase())
                 .date(rateEntity.getDate())
                 .rates(rateInfoList)
@@ -84,7 +85,6 @@ public class RateService {
 
         RateResponse rates = responseEntity.getBody();
         RateEntity entity = convert(rates);
-        entity.setDate(rateDate);
         return rateRepository.save(entity);
     }
 
