@@ -64,13 +64,8 @@ class RateServiceTest extends BaseServiceTest {
                 .date(date)
                 .build();
 
-        // Create a HttpHeaders object and set the "apikey" header
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("apikey", EXCHANGE_API_API_KEY);
-
         // Create a mock response entity with the expected headers and body
         ResponseEntity<RateResponse> mockedResponseEntity = ResponseEntity.ok()
-                .headers(headers)
                 .body(mockedRateResponse);
 
         // Mock RestTemplate behavior
@@ -84,20 +79,13 @@ class RateServiceTest extends BaseServiceTest {
         // Call the method
         RateDto result = rateService.calculateRate(base, targets, date);
 
-        // Verify repository method was called
-        verify(rateRepository, times(1)).findOneByDate(date);
 
         // Verify API call was made
         String expectedUrl = getExchangeUrl(date, base, targets);
         HttpHeaders expectedHeaders = new HttpHeaders();
         expectedHeaders.add("apikey", EXCHANGE_API_API_KEY);
         HttpEntity<String> expectedHttpEntity = new HttpEntity<>(expectedHeaders);
-        verify(restTemplate, times(1)).exchange(
-                eq(expectedUrl),
-                eq(HttpMethod.GET),
-                eq(expectedHttpEntity),
-                eq(RateResponse.class)
-        );
+
 
         // Verify the result
         assertThat(result.getBase()).isEqualTo(base);
@@ -106,6 +94,16 @@ class RateServiceTest extends BaseServiceTest {
         assertThat(result.getRates()).containsExactlyInAnyOrder(
                 new RateInfoDto(EnumCurrency.USD, 1.2),
                 new RateInfoDto(EnumCurrency.GBP, 0.9)
+        );
+
+        // Verify repository method was called
+        verify(rateRepository, times(1)).findOneByDate(date);
+
+        verify(restTemplate, times(1)).exchange(
+                eq(expectedUrl),
+                eq(HttpMethod.GET),
+                eq(expectedHttpEntity),
+                eq(RateResponse.class)
         );
     }
 
