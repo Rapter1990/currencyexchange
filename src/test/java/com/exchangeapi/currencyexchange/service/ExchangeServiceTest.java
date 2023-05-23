@@ -7,6 +7,7 @@ import com.exchangeapi.currencyexchange.dto.RateInfoDto;
 import com.exchangeapi.currencyexchange.entity.ExchangeEntity;
 import com.exchangeapi.currencyexchange.entity.enums.EnumCurrency;
 import com.exchangeapi.currencyexchange.repository.ExchangeRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -39,14 +40,17 @@ class ExchangeServiceTest extends BaseServiceTest {
         // Mocking dependencies
         EnumCurrency baseCurrency = EnumCurrency.USD;
         List<EnumCurrency> targetCurrencies = Arrays.asList(EnumCurrency.EUR, EnumCurrency.GBP);
+
         List<RateInfoDto> rateInfoDtos = Arrays.asList(
                 new RateInfoDto(EnumCurrency.EUR, 0.85),
                 new RateInfoDto(EnumCurrency.GBP, 0.72)
         );
+
         RateDto rateDto = RateDto.builder()
                 .base(baseCurrency)
                 .rates(rateInfoDtos)
                 .build();
+
         when(rateService.calculateRate(eq(baseCurrency), eq(targetCurrencies))).thenReturn(rateDto);
 
         Double amount = 100.0;
