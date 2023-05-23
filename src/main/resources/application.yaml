@@ -31,6 +31,14 @@ exchange-api:
   cache-name: exchanges
   cache-ttl: 10000
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    metrics:
+      enabled: true
 
 
 
