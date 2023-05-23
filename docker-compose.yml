@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  currencyexchange:
+    image: 'currencyexchange:latest'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      - "EXCHANGE_API_API_KEY=${EXCHANGE_API_API_KEY}"
+    volumes:
+      - ./logs:/app/logs
