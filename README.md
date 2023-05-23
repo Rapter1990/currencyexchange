@@ -1,16 +1,18 @@
-# Spring Boot QR Generator Example
+# Spring Boot Currency Change API Example
 
 <img src="screenshots/spring_boot_currency_diagram.png" alt="Main Information" width="800" height="400">
 
 ### 📖 Information
 
 <ul style="list-style-type:disc">
-  <li>Text </li> 
-  <li>Text  
+  <li>The <b>purpose</b> of the example is to handle with http get requests regarding currency exchange</li> 
+  <li>Here is the explanation of the currency exchange example  
        <ul>
-            <li>Text </li>
-            <li>Text </li>
-            <li>Text </li>
+            <li>Get rates from the <b>database</b> if the rate info is already inserted into <b>database</b></li>
+            <li>Get rates from <b>apilayer.com</b> and insert its value into <b>database</b> and return the <b>rate</b> info</li>
+            <li>Get exchange rates by exchange request info covering <b>base currency</b>, <b>target currency</b> and lastly <b>amount</b></li>
+            <li>Get conversion by rate id</li>
+            <li>Get all conversions between two dates named <b>start date</b> and <b>end date</b> </li>
        </ul>
   </li>
 </ul>
