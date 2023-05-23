@@ -97,7 +97,6 @@
 ##### <a id="getconversion"> Get Conversion
 ```
     http://localhost:8080/v1/conversion/17d98364-e435-40d7-a941-af535fc95065
-    
 ```
 
 ### Technologies
@@ -162,6 +161,12 @@ You can reach the swagger-ui through the link shown below
     http://localhost:8080/swagger-ui/index.html
 ```
 
+### Actuator
+You can reach the actuator through the link shown below
+```
+    http://localhost:8080/actuator
+```
+
 ### Screenshots
 
 <details>
@@ -176,8 +181,4 @@ You can reach the swagger-ui through the link shown below
     <img src ="screenshots/screenshot_4.PNG">
     <p> Figure 5 </p>
     <img src ="screenshots/screenshot_5.PNG">
-    <p> Figure 6 </p>
-    <img src ="screenshots/screenshot_6.PNG">
-    <p> Figure 7 </p>
-    <img src ="screenshots/screenshot_7.PNG">
 </details>
