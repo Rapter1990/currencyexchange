@@ -1,6 +1,6 @@
 # Spring Boot QR Generator Example
 
-<img src="screenshots/spring_boot_currency_diagram.png" alt="Main Information" width="800" height="500">
+<img src="screenshots/spring_boot_currency_diagram.png" alt="Main Information" width="800" height="400">
 
 ### 📖 Information
 
