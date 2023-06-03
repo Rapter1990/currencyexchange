@@ -8,6 +8,6 @@ COPY src src
 RUN ./mvnw package
 
 FROM openjdk:17-jdk-slim
-WORKDIR open-weather
+WORKDIR currencyexchange
 COPY --from=build target/*.jar currencyexchange.jar
 ENTRYPOINT ["java", "-jar", "currencyexchange.jar"]
